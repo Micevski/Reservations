@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -47,6 +48,12 @@ public class ReservationController {
     @DeleteMapping("/delete/{reservationId}")
     public void deleteReservationById(@PathVariable Long reservationId){
         service.deleteReservationById(reservationId);
+    }
+
+    @GetMapping("/report/{typeId}/{date}")
+    public List testJson(@PathVariable Long typeId, @PathVariable String date){
+        //2018-05-18 00:00:00
+        return service.getReservationsByCompany(date,typeId);
     }
 }
 

@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Reservation} from '../models/Reservation';
 import {Company} from '../models/Company';
 import {Observable} from 'rxjs/Observable';
+import {CompanyReservations} from '../models/CompanyReservations';
 
 @Injectable()
 export class ReservationService {
@@ -31,5 +32,9 @@ export class ReservationService {
 
   deleteReservation(reservationId:number){
     return this.http.delete('/api/reserve/delete/'+reservationId);
+  }
+
+  getCompanyReservations(typeId: number, date: any): Observable<CompanyReservations[]> {
+    return this.http.get<CompanyReservations[]>(`/api/reserve/report/${typeId}/${date.year}-${date.month}-${date.day}`);
   }
 }

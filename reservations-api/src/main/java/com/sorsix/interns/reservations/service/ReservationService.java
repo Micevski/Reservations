@@ -1,5 +1,6 @@
 package com.sorsix.interns.reservations.service;
 
+import com.sorsix.interns.reservations.model.CompanyReservations;
 import com.sorsix.interns.reservations.model.Reservation;
 import com.sorsix.interns.reservations.model.User;
 import com.sorsix.interns.reservations.model.requests.DateRequest;
@@ -7,10 +8,13 @@ import com.sorsix.interns.reservations.model.requests.ReservationRequest;
 import com.sorsix.interns.reservations.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservationService {
@@ -61,6 +65,16 @@ public class ReservationService {
         return reservations.stream()
                 .mapToInt(Reservation::getPersonCount)
                 .sum();
+    }
+
+    public List<CompanyReservations> getReservationsByCompany(String dateTime, Long typeId){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-M-d");
+        LocalDate localDate = LocalDate.parse(dateTime,dtf);
+        List<Object[]> reservations = repository.reservationsByCompany(localDate,typeId);
+        return reservations.stream()
+                .map(obj -> new CompanyReservations((String)obj[0],((BigInteger)obj[1]).longValue()))
+                .collect(Collectors.toList());
+
     }
 
 }

@@ -32,5 +32,27 @@
   </div>
 
 </div>
+<div class="row">
+  <div class="form-group col-md-6 offset-2">
+    <select class="form-control form-control-sm" [(ngModel)]="selectedTypeIndex" name="place" id="category">
+      <option *ngFor="let type of companyTypes; let i=index" [value]="i">{{type.name}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <input class="form-control" placeholder="yyyy-mm-dd"
+             name="dp" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" >
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+          <i class="far fa-calendar-alt"></i>
+        </button>
+        <button type="button" (click)="loadReservations()">Check</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div #chart></div>
+</div>
 
 <app-footer></app-footer>
