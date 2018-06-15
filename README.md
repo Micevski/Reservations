@@ -1,5 +1,4 @@
 # Reservations
-## About ##
 The main idea in this application is to help all users to make reservation in their favorite bar or club.
 Secondly, users can browse throw our database and find a perfect local in their area, make reseravtions, and of course have some fun 
 with their friends.
