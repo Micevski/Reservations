@@ -30,4 +30,4 @@ When new user is registering he has to provide the same infomratio as Owners.
 
 All password are stored crypted, using ``org.springframework.security.crypto.password`` - ``PasswordEncoder``.
 
-> Note that this app is stil develop.
+> Note that this app is in stil develop.
