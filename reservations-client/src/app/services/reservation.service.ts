@@ -37,4 +37,10 @@ export class ReservationService {
   getCompanyReservations(typeId: number, date: any): Observable<CompanyReservations[]> {
     return this.http.get<CompanyReservations[]>(`/api/reserve/report/${typeId}/${date.year}-${date.month}-${date.day}`);
   }
+
+  getMounthlyReservationsForCompany(companyId: number): Observable<any[][]> {
+    console.log(companyId);
+    return this.http.get<any[][]>(`api/reserve/report/details/${companyId}`);
+  }
+
 }

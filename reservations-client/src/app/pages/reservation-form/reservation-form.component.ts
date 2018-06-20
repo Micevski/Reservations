@@ -48,7 +48,8 @@ export class ReservationFormComponent implements OnInit {
         setTimeout(()=> {
             this.closeDialog.nativeElement.click();
           },
-        1500)
+        1500);
+        window.location.reload();
       });
   }
 
