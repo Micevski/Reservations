@@ -8,12 +8,12 @@ import com.sorsix.interns.reservations.model.requests.ReservationRequest;
 import com.sorsix.interns.reservations.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,7 +25,7 @@ public class ReservationService {
         this.repository = repository;
     }
 
-    public List<Reservation> getCompanyReservations(Long companyId){
+    public List<Reservation> getCompanyReservations(Long companyId) {
         return repository.findByCompany_Id(companyId);
     }
 
@@ -34,9 +34,9 @@ public class ReservationService {
         return repository.findByCompany_IdAndForDate(companyId, localDate);
     }
 
-    public List<Reservation> getCompanyReservationsOnDate(Long companyId, String date){
+    public List<Reservation> getCompanyReservationsOnDate(Long companyId, String date) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-M-d");
-        LocalDate localDate = LocalDate.parse(date,dtf);
+        LocalDate localDate = LocalDate.parse(date, dtf);
         return repository.findByCompany_IdAndForDate(companyId, localDate);
     }
 
@@ -44,7 +44,7 @@ public class ReservationService {
         return repository.findByUser_Id(userId);
     }
 
-    public void deleteReservationById(Long id){
+    public void deleteReservationById(Long id) {
         repository.deleteById(id);
     }
 
@@ -67,14 +67,31 @@ public class ReservationService {
                 .sum();
     }
 
-    public List<CompanyReservations> getReservationsByCompany(String dateTime, Long typeId){
+    public List<CompanyReservations> getReservationsByCompanyType(String dateTime, Long typeId) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-M-d");
-        LocalDate localDate = LocalDate.parse(dateTime,dtf);
-        List<Object[]> reservations = repository.reservationsByCompany(localDate,typeId);
+        LocalDate localDate = LocalDate.parse(dateTime, dtf);
+        List<Object[]> reservations = repository.reservationsByCompany(localDate, typeId);
         return reservations.stream()
-                .map(obj -> new CompanyReservations((String)obj[0],((BigInteger)obj[1]).longValue()))
+                .map(obj -> new CompanyReservations((String) obj[0], ((BigInteger) obj[1]).longValue()))
                 .collect(Collectors.toList());
 
     }
 
+    public List getReservationsByCompanyForMonth(Long companyId) {
+        LocalDate today = LocalDate.now();
+        LocalDate start = today.minusDays(15);
+        LocalDate end = today.plusDays(15);
+        Map<LocalDate, Integer> results = new TreeMap<>();
+        for(LocalDate date = start; !date.equals(end); date = date.plusDays(1)) {
+            results.put(date, 0);
+        }
+        getCompanyReservations(companyId).stream()
+                .filter(it -> it.getForDate().isBefore(end) && it.getForDate().isAfter(start))
+                .forEach(reservation -> {
+                    int current = results.get(reservation.getForDate());
+                    results.put(reservation.getForDate(), current + reservation.getPersonCount());
+                });
+        return results.entrySet().stream()
+                .map(entry -> Arrays.asList(entry.getKey(), entry.getValue())).collect(Collectors.toList());
+    }
 }

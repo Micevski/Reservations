@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 
@@ -53,7 +52,13 @@ public class ReservationController {
     @GetMapping("/report/{typeId}/{date}")
     public List testJson(@PathVariable Long typeId, @PathVariable String date){
         //2018-05-18 00:00:00
-        return service.getReservationsByCompany(date,typeId);
+        return service.getReservationsByCompanyType(date,typeId);
+    }
+
+    @GetMapping("/report/details/{companyId}")
+    public List getReservationsByCompanyForMonth(@PathVariable Long companyId){
+        return service.getReservationsByCompanyForMonth(companyId);
+
     }
 }
 
