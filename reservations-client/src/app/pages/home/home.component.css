@@ -1,10 +1,10 @@
 .background {
   background-color: gray;
-  height: 800px;
+  height: 600px;
 }
 
 .header-image {
-  height: 400px;
+  height: 500px;
   background-image: url("https://media.otstatic.com/img/start_hero_images/us-hero-1380-418c7360ca592e42683bc510ba947e32.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -17,7 +17,7 @@
   border-radius: 15px;
 
   position: absolute;
-  top: 175px;
+  top: 398px;
   bottom: 0;
   left: 0;
   right: 0;

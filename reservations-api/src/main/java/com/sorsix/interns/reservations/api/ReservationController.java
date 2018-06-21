@@ -51,7 +51,7 @@ public class ReservationController {
 
     @GetMapping("/report/{typeId}/{date}")
     public List testJson(@PathVariable Long typeId, @PathVariable String date){
-        //2018-05-18 00:00:00
+         //2018-05-18 00:00:00
         return service.getReservationsByCompanyType(date,typeId);
     }
 
