@@ -1,25 +1,33 @@
 <app-header></app-header>
 
-<div class="list-group">
-  <a *ngFor="let company of companies" class="list-group-item list-group-item-action">
-    <div class="d-flex">
-      <div class="col-lg-4">
-        <img src="{{company.images[0].imageUrl}}" alt="Show image" style="width: 300px; height: 200px">
-      </div>
-      <div class="col-lg-8">
-        <div class="d-flexx justify-content-between">
-          <h5>{{ company.name }}</h5>
-          <p>{{company.address}}</p>
+<div style="background-color: lightgray">
+
+  <div class="col-sm-8 offset-2" style="padding-top: 3%; padding-bottom: 13%">
+    <div class="list-group">
+      <a *ngFor="let company of companies" class="list-group-item list-group-item-action">
+        <div class="d-flex">
+          <div class="col-lg-4">
+            <img src="{{company.images[0].imageUrl}}" alt="Show image" style="width: 300px; height: 200px">
+          </div>
+          <div class="col-lg-8">
+            <div class="d-flexx justify-content-between">
+              <h5>{{ company.name }}</h5>
+              <p>{{company.address}}</p>
+            </div>
+            <div class="pt-4">
+              <a routerLink="/company/{{company.name}}" class="btn btn-dark" href="#">Show details</a>
+              <button type="button" class="btn btn-info" (click)="onReserve(company)" data-toggle="modal"
+                      data-target="#reservation-form">
+                Reserve
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="pt-4">
-          <a routerLink="/company/{{company.name}}" class="btn btn-dark" href="#">Show details</a>
-          <button type="button" class="btn btn-info" (click)="onReserve(company)" data-toggle="modal" data-target="#reservation-form">
-            Reserve
-          </button>
-        </div>
-      </div>
+      </a>
     </div>
-  </a>
+  </div>
+  <app-footer></app-footer>
 </div>
+
 
 <app-reservation-form [company]="company"></app-reservation-form>

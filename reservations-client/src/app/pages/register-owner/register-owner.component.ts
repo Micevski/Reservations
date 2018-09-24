@@ -32,8 +32,6 @@ export class RegisterOwnerComponent implements OnInit {
   }
 
   onSubmit() {
-
-
     if (this.validate()) {
       this.user = new User(this.firstName, this.lastName, this.email, this.password);
       this.ownerService.registerOwner(this.user)

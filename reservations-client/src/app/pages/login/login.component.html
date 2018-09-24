@@ -1,21 +1,22 @@
-<div id="login-modal">
+<app-header></app-header>
+<div id="login-modal" style="margin-top: 5%">
 
-  <div>
+  <div class="col-sm-6 offset-3">
     <div class="loginmodal-container">
       <h1>Log in to Your Account</h1><br>
       <form (submit)="onLogInClick()">
-        <input [(ngModel)]="username" type="text" name="user" placeholder="Username">
+        <input [(ngModel)]="username" type="text" name="user" placeholder="Email">
         <input [(ngModel)]="password" id="password" type="password" name="pass" placeholder="Password">
         <p style="color: red">{{ labelText }}</p>
-        <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+        <button type="submit" name="login" class="loginmodal-submit offset-4 btn btn-success">Login</button>
       </form>
 
       <div class="row">
-        <div class="login-help col-lg-6">
+        <div class="login-help col-sm-1 offset-4">
           <a routerLink="/register">Register</a>
         </div>
 
-        <div class="login-help col-lg-6 pl-5">
+        <div class="login-help">
           <a routerLink="/login/owner">Log in as owner</a>
         </div>
       </div>
